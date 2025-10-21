@@ -11,18 +11,18 @@ This guide turns a hot‑pluggable USB flash drive into a network share via **NF
 ## 📐 Architecture
 ```mermaid
 graph LR
-  USB[USB Flash Drive] -->|"dev/sdX2 -> UUID=2964-1824"| MNT[/mnt/usbshare]
-  MNT -->|Export| NFS[NFS Server (nfs-kernel-server)]
-  NFS -->|RWX| PV[PersistentVolume]
-  PV --> PVC[PersistentVolumeClaim]
-  PVC --> POD[Pods / Deployments]
+  USB[USB Flash Drive] -->|" /dev/sdX2 -> UUID=2964-1824 "| MNT[/mnt/usbshare]
+  MNT -->|" Export "| NFS[NFS Server (nfs-kernel-server)]
+  NFS -->|" RWX "| PV[PersistentVolume]
+  PV -->|" Bind "| PVC[PersistentVolumeClaim]
+  PVC -->|" Mount "| POD[Pods / Deployments]
 
-  style USB fill:#fff,stroke:#333
-  style MNT fill:#eef,stroke:#447
-  style NFS fill:#efe,stroke:#484
-  style PV fill:#ffe,stroke:#884
-  style PVC fill:#ffe,stroke:#884
-  style POD fill:#fef,stroke:#848
+  style USB fill:#ffffff,stroke:#333333
+  style MNT fill:#e8f0ff,stroke:#4477aa
+  style NFS fill:#e8ffe8,stroke:#448844
+  style PV fill:#fff9e0,stroke:#888844
+  style PVC fill:#fff9e0,stroke:#888844
+  style POD fill:#ffe8ff,stroke:#884488
 ```
 
 ---
