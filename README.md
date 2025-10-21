@@ -212,7 +212,7 @@ sudo nano /etc/udev/rules.d/99-usb-nfs.rules
 ```
 Paste (adjust IDs if different):
 ```udev
-ACTION=="add", SUBSYSTEMS=="usb", ATTRS{idVendor}=="0781", ATTRS{idProduct}=="5567", RUN+="/usr/local/bin/usb_nfs_refresh.sh"
+ACTION=="add", SUBSYSTEM=="block", ENV{DEVTYPE}=="partition", ENV{ID_VENDOR}=="SanDisk", ENV{ID_MODEL}=="Cruzer_Blade", RUN+="/bin/systemd-run --no-block />
 ```
 Reload:
 ```bash
