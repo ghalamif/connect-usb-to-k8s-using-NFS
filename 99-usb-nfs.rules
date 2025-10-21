@@ -1,0 +1,2 @@
+  GNU nano 8.3                                                 /etc/udev/rules.d/99-usb-nfs.rules                                                           
+ACTION=="add", SUBSYSTEMS=="usb", ATTRS{idVendor}=="0781", ATTRS{idProduct}=="5567", RUN+="/usr/local/bin/usb_nfs_refresh.sh"
