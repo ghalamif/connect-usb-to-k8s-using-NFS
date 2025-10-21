@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: usb-nfs-pv
+spec:
+  capacity:
+    storage: 28Gi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  nfs:
+    server: 192.168.209.203      # your host IP
+    path: /mnt/usbshare
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: usb-nfs-pvc
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: usb-nfs-pod
+  labels:
+    app: usb-nfs-test
+spec:
+  containers:
+  - name: usb-nfs-container
+    image: alpine:latest
+    command: ["sleep", "3600"]
+    volumeMounts:
+    - name: usb-nfs-volume
+      mountPath: /data        # inside the container
+  volumes:
+  - name: usb-nfs-volume
+    persistentVolumeClaim:
+      claimName: usb-nfs-pvc
+  restartPolicy: Always
