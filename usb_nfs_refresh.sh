@@ -23,5 +23,6 @@ systemctl start nfs-kernel-server
 exportfs -ra
 
 logger "USB NFS remount + pod refresh complete"
+echo "$(date) - usb_nfs_refresh.sh triggered by udev" >> /var/log/usb-nfs.log
 echo "USB NFS remount"
 showmount -e localhost
