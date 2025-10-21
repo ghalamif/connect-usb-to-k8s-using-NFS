@@ -194,10 +194,12 @@ if command -v kubectl &> /dev/null; then
   /usr/bin/kubectl delete pod -l app=usb-nfs-test --ignore-not-found
 fi
 logger "USB NFS remount + pod refresh complete"
+echo "$(date) - usb_nfs_refresh.sh triggered by udev" >> /var/log/usb-nfs.log
 ```
 Make it executable:
 ```bash
 sudo chmod +x /usr/local/bin/usb_nfs_refresh.sh
+sudo chown root:root /usr/local/bin/usb_nfs_refresh.sh
 ```
 
 ### 5.2 Add a udev rule for your USB model
