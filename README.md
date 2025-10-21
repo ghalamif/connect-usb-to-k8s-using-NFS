@@ -11,7 +11,7 @@ This guide turns a hot‑pluggable USB flash drive into a network share via **NF
 ## 📐 Architecture
 ```mermaid
 graph LR
-  USB[USB Flash Drive] -->|/dev/sdX2 → UUID=2964-1824| MNT[/mnt/usbshare]
+  USB[USB Flash Drive] -->|"dev/sdX2 -> UUID=2964-1824"| MNT[/mnt/usbshare]
   MNT -->|Export| NFS[NFS Server (nfs-kernel-server)]
   NFS -->|RWX| PV[PersistentVolume]
   PV --> PVC[PersistentVolumeClaim]
@@ -247,7 +247,8 @@ sequenceDiagram
   Udev->>S: Run /usr/local/bin/usb_nfs_refresh.sh
   S->>N: stop nfs-kernel-server (release handles)
   S->>FS: mount -a (mount by UUID to /mnt/usbshare)
-  S->>N: start nfs-kernel-server; exportfs -ra
+  S->>N: start nfs-kernel-server
+  S->>N: exportfs -ra
   S->>K: delete pods with label app=usb-nfs-test
   K-->>Pods: Pod restarts, fresh NFS mount
   Pods->>N: New NFS session to /mnt/usbshare
