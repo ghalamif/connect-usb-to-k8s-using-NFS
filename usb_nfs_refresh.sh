@@ -1,4 +1,3 @@
-GNU nano 8.3                                                  /usr/local/bin/usb_nfs_refresh.sh                                                           
 #!/bin/bash
 logger "USB device detected – remounting and refreshing NFS"
 echo "USB device detected – remounting and refreshing NFS"
