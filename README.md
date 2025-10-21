@@ -225,6 +225,8 @@ sudo udevadm trigger
 ### 5.3 Test the full cycle
 ```bash
 # Watch logs
+sudo tail -n 5 /var/log/usb-nfs.log
+OR
 sudo journalctl -f | grep -i usb
 # Unplug → replug the USB
 # Within a few seconds you should see the script logs
@@ -306,21 +308,6 @@ sudo ufw allow from 192.168.209.0/24 to any port nfs
 - Use `noatime` in fstab to reduce writes.  
 - Prefer larger, sequential writes; avoid tiny sync writes over NFS.  
 - For heavier needs, consider a small NAS or SSD over USB3.
-
----
-
-## 🧾 Appendix: One‑shot manual refresh
-If automation isn’t set yet, this one‑liner recovers the chain after a replug:
-```bash
-sudo systemctl stop nfs-kernel-server; \
-  sudo fuser -km /mnt/usbshare || true; \
-  sudo umount -lf /mnt/usbshare || true; \
-  sudo systemctl daemon-reload; \
-  sudo mount -a; \
-  sudo systemctl start nfs-kernel-server; \
-  sudo exportfs -ra; \
-  kubectl delete pod -l app=usb-nfs-test --ignore-not-found
-```
 
 ---
 
