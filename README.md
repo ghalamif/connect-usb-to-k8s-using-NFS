@@ -8,7 +8,7 @@ This guide turns a hot‑pluggable USB flash drive into a network share via **NF
 
 ---
 
-## 📐 Architecture
+## Architecture
 ```mermaid
 graph LR
   USB[USB Flash Drive]
